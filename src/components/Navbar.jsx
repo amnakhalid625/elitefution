@@ -35,9 +35,9 @@ const Navbar = () => {
     { title: 'Portfolio', bg: portfolioBg, href: '/portfolio' },
     { title: 'Careers', bg: careersBg, href: '/careers' },
     { title: 'News', bg: newsBg, href: '/news' },
-    { title: 'Events', bg: eventsBg, href: '/events' },
+    { title: 'Game James', bg: eventsBg, href: '/game-james' },
+    // { title: 'Events', bg: eventsBg, href: '/events' },
     { title: 'Contact Us', bg: contactBg, href: '/contact-us' },
-    { title: 'Game James', bg: eventsBg, href: '/game-james' }
 
   ];
 
@@ -136,7 +136,7 @@ const Navbar = () => {
           </div>
 
           {/* Main Content Area */}
-          <div className="container mx-auto h-full flex flex-col">
+          <div className="container mx-auto h-full flex flex-col px-6 md:px-12">
             {/* Logo at top center - Changed to Link */}
             <div className="flex justify-center pt-5">
               <Link to="/" onClick={() => setMenuOpen(false)}>
