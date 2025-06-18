@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
-import homeBg from '../assets/images/deskbg.webp';
-import mobileBg from '../assets/images/mobile-bg.webp';
+import homeBg from '../assets/images/homebg4.jpg';
+import mobileBg from '../assets/images/homebg4.jpg';
 import tankImg from '../assets/images/tank.webp';
 import textImg from '../assets/images/homeText.webp';
 import smokeImg from '../assets/images/smoke.webp';
@@ -13,7 +13,7 @@ import Map from '../components/Map';
 import Services from '../components/Services';
 import Projects from '../components/Projects';
 import Partners from '../components/Partners';
-import News from '../components/News';
+// import News from '../components/News';
 import Carear from '../components/Carear';
 import Footer from '../components/Footer';
 import CardSlider from '../components/CardSlider';
@@ -142,7 +142,7 @@ const Home = () => {
       <CardSlider />
       <Projects />
       <Partners />
-      <News />
+      {/* <News /> */}
       <Carear/>
       <Footer />
     </>
