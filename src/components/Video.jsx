@@ -78,6 +78,7 @@ export const Video = () => {
                   src={video}
                   controls
                   autoPlay
+                  preload="auto"
                   className="w-full h-full rounded-lg"
                 >
                   Your browser does not support the video tag.
