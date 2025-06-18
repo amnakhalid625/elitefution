@@ -109,11 +109,11 @@ const About = () => {
         <div className="w-full max-w-[83rem] mx-auto mt-40 pt-10">
           <div className="flex flex-wrap items-center justify-center gap-y-20 gap-x-14 font-primary">
             {[
-              { value: 4200, label: 'People', icon: '👥' },
-              { value: 25, label: 'Locations', icon: '📍' },
-              { value: 900, label: 'Clients', icon: '🤝' },
-              { value: 21, label: 'Years', icon: '📅' },
-              { value: 1500, label: 'Titles', icon: '🎮' },
+              { value: 4200, label: 'People',  },
+              { value: 25, label: 'Locations'},
+              { value: 900, label: 'Clients' },
+              { value: 21, label: 'Years', },
+              { value: 1500, label: 'Titles',  },
             ].map((item, index) => (
               <div key={index} className="flex items-center group">
                 <div className="text-center relative">

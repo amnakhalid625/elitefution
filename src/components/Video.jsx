@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import thumbnail from '../assets/images/videoImg.jpg';
 import { X } from 'lucide-react';
+import video from '../assets/images/video.mp4';
 
 export const Video = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,19 +17,19 @@ export const Video = () => {
     <div className="relative w-full py-16 md:py-28 bg-[#25282A] px-4 overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-30"></div>
-      
+
       <div className="relative w-full max-w-6xl mx-auto">
         {/* Thumbnail with Play Button */}
         <div className="relative w-full rounded-xl overflow-hidden cursor-pointer group">
           {/* Glow effect on hover */}
           <div className="absolute inset-0 bg-orange-500/10 group-hover:opacity-30 opacity-0 transition-opacity duration-500 rounded-xl"></div>
-          
+
           <img
             src={thumbnail}
             alt="Video Thumbnail"
             className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          
+
           {/* Play button with pulse animation */}
           <div className="absolute inset-0 flex items-center justify-center">
             <button
@@ -39,7 +40,7 @@ export const Video = () => {
               <div className="relative">
                 {/* Pulse ring animation */}
                 <div className="absolute inset-0 border-4 border-white/20 rounded-full animate-ping opacity-0 group-hover/button:opacity-100 transition-opacity duration-300"></div>
-                
+
                 {/* Main play button */}
                 <div className="w-20 h-20 md:w-24 md:h-24 border-4 border-white/50 bg-black/30 group-hover/button:bg-black/50 transition-all duration-300 rounded-full flex items-center justify-center backdrop-blur-md shadow-2xl">
                   <svg
@@ -71,18 +72,16 @@ export const Video = () => {
                 <X size={36} strokeWidth={2} />
               </button>
 
-              {/* YouTube Embed */}
-              <div className="aspect-w-16 aspect-h-9 w-full">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1"
-                  title="YouTube Video"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="rounded-lg shadow-xl min-h-[50vh] md:min-h-0"
-                ></iframe>
+              {/* Local Video Player */}
+              <div className="aspect-w-16 aspect-h-9 w-full rounded-lg overflow-hidden shadow-xl">
+                <video
+                  src={video}
+                  controls
+                  autoPlay
+                  className="w-full h-full rounded-lg"
+                >
+                  Your browser does not support the video tag.
+                </video>
               </div>
             </div>
           </div>
