@@ -3,12 +3,12 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
-import duneImg from '../assets/images/dune.png';
-import darkSoulImg from '../assets/images/dark_souls.png';
-import judasImg from '../assets/images/judas.png';
+import duneImg from '../assets/images/duneImg.jpg';
+import darkSoulImg from '../assets/images/darkSoulImg.jpg';
+import judasImg from '../assets/images/judasImg.jpg';
 import portfolioImg from '../assets/images/portfolio.webp';
 import stellerImg from '../assets/images/stellar_blade.png';
-import leagueoImg from '../assets/images/leagueo.png';
+import leagueoImg from '../assets/images/leagueoImg.jpg';
 import { Code, Cpu, Palette, Rocket, Settings, Users } from 'lucide-react';
 
 const Services = () => {

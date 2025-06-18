@@ -34,7 +34,7 @@ const Navbar = () => {
     { title: 'Our Works', bg: worksBg, href: '/our-work' },
     { title: 'Portfolio', bg: portfolioBg, href: '/portfolio' },
     { title: 'Careers', bg: careersBg, href: '/careers' },
-    { title: 'News', bg: newsBg, href: '/news' },
+    // { title: 'News', bg: newsBg, href: '/news' },
     { title: 'Game James', bg: eventsBg, href: '/game-james' },
     // { title: 'Events', bg: eventsBg, href: '/events' },
     { title: 'Contact Us', bg: contactBg, href: '/contact-us' },
