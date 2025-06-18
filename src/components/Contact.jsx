@@ -14,15 +14,14 @@ const ContactForm = () => {
           backgroundImage: "url('https://www.virtuosgames.com/wp-content/uploads/2024/11/3services_hero_1920x870_APNG.png')",
         }}
       />
-      <div className="absolute inset-0 bg-black/80 z-0" />
+      <div className="absolute inset-0 bg-black/40 z-0" />
 
       {/* Content Container */}
       <div className="w-full max-w-md relative z-10">
         {/* Header - Moved outside the form like login */}
         <div className="text-center mb-8">
           <GiGamepad className="mx-auto text-5xl text-orange-500 mb-3" />
-          <h2 className="text-5xl font-bold text-white mb-2 font-primary">CONTACT THE TEAM</h2>
-          <p className="text-gray-400">Get in touch with our gaming experts</p>
+          <h2 className="text-5xl font-bold text-white  font-primary">CONTACT THE TEAM</h2>
         </div>
 
         {/* Form Box */}
@@ -105,7 +104,7 @@ const ContactForm = () => {
           <div className="px-8 py-4 bg-black/50 text-center border-t border-gray-700">
             <p className="text-gray-400 text-sm">
               Need immediate help?{' '}
-              <a href="#" className="text-orange-500 hover:underline">Join our Discord</a>
+              <a href="https://discord.gg/A7JVR8bh" target="_blank" className="text-orange-500 hover:underline">Join our Discord</a>
             </p>
           </div>
         </motion.div>
