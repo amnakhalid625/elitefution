@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import homeBg from '../assets/images/homebg4.jpg';
 import mobileBg from '../assets/images/homebg4.jpg';
 import tankImg from '../assets/images/tank.webp';
-import textImg from '../assets/images/homeText.png';
+import textImg from '../assets/images/homeText.webp';
 import smokeImg from '../assets/images/smoke.webp';
 import DBL_Arrow from '../assets/images/DBL_Arrow.png';
 import smokeSecondImg from '../assets/images/smokeRight.webp';
@@ -92,7 +92,7 @@ const Home = () => {
           <img
             src={textImg}
             alt="WE MAKE GAMES BETTER TOGETHER"
-            className="parallax-text w-[120%] max-w-[400px] md:max-w-[700px] mt-40 md:mt-20 transition-transform duration-100"
+            className="parallax-text w-[120%] max-w-[400px] md:max-w-[500px] mt-40 md:mt-20 transition-transform duration-100"
           />
         </div>
 
