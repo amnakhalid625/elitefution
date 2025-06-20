@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar';
-import homeBg from '../assets/images/homebg4.jpg';
-import mobileBg from '../assets/images/homebg4.jpg';
+import homeBg from '../assets/images/homebg.webp';
+import mobileBg from '../assets/images/homebg.webp';
 import tankImg from '../assets/images/tank.webp';
 import textImg from '../assets/images/homeText.webp';
 import smokeImg from '../assets/images/smoke.webp';

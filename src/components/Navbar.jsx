@@ -43,7 +43,7 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="w-full px-6 py-4 md:py-6 flex justify-between items-center flex-wrap bg-transparent font-secondary absolute top-0 left-0 z-50 text-white">
+      <header className="w-full px-6 sm:mt-[-5px] md:mt-[-20px] py-4 md:py-6 flex justify-between items-center flex-wrap bg-transparent font-secondary absolute top-0 left-0 z-50 text-white">
         {/* Menu Button */}
         <div className="flex items-center gap-2">
           <button onClick={() => setMenuOpen(true)} className="w-8 h-8 md:w-10 md:h-10">
@@ -57,7 +57,7 @@ const Navbar = () => {
         {/* Logo - Changed to Link */}
         <div className="flex-grow flex justify-center">
           <Link to="/">
-            <img src={logoImg} alt="Virtuos Logo" className="h-8 md:h-28 object-contain" />
+            <img src={logoImg} alt="Virtuos Logo" className="h-20 md:h-32 object-contain" />
           </Link>
         </div>
 
@@ -143,7 +143,7 @@ const Navbar = () => {
                 <img
                   src={logoImg}
                   alt="Virtuos Logo"
-                  className="h-16 w-auto"
+                  className="h-28 w-auto"
                 />
               </Link>
             </div>
