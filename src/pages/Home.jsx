@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import homeBg from '../assets/images/homebg.webp';
 import mobileBg from '../assets/images/homebg.webp';
 import tankImg from '../assets/images/tank.webp';
-import textImg from '../assets/images/homeText.webp';
+import textImg from '../assets/images/ht.png';
 import smokeImg from '../assets/images/smoke.webp';
 import DBL_Arrow from '../assets/images/DBL_Arrow.png';
 import smokeSecondImg from '../assets/images/smokeRight.webp';
@@ -89,11 +89,12 @@ const Home = () => {
         />
 
         <div className="absolute inset-0 flex items-center justify-center z-30">
-          <img
-            src={textImg}
-            alt="WE MAKE GAMES BETTER TOGETHER"
-            className="parallax-text w-[120%] max-w-[400px] md:max-w-[500px] mt-40 md:mt-20 transition-transform duration-100"
-          />
+        <img
+  src={textImg}
+  alt="WE MAKE GAMES BETTER TOGETHER"
+  className="parallax-text w-full max-w-[300px] md:max-w-[400px] mt-40 md:mt-20 transition-transform duration-100"
+/>
+
         </div>
 
         {/* Smoke Elements - Hidden on mobile */}

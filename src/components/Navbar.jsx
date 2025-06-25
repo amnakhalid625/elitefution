@@ -2,16 +2,30 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logoImg from '../assets/images/logo.png';
 import menuIcon from '../assets/images/menuImg.webp';
-import bgImg from '../assets/images/menuBg.webp';
+import bgImg from '../assets/images/menuBg.jpg';
 // hover background images
-import aboutBg from '../assets/images/about-bg.webp';
-import servicesBg from '../assets/images/services-bg.webp';
-import worksBg from '../assets/images/works-bg.webp';
-import careersBg from '../assets/images/menuBg.webp';
+import aboutBg from '../assets/images/aboutBg.jpg';
+import servicesBg from '../assets/images/serviceBg.jpg';
+import worksBg from '../assets/images/ourWorkBg.jpg';
+import careersBg from '../assets/images/ourCareer.jpg';
 import newsBg from '../assets/images/news-bg.webp';
-import portfolioBg from '../assets/images/portfolio-bg.webp';
+import portfolioBg from '../assets/images/ourPortfolio.jpg';
 import eventsBg from '../assets/images/events-bg.webp';
-import contactBg from '../assets/images/menuBg.webp';
+import jams from '../assets/images/jams.jpg'
+import contactBg from '../assets/images/contactBg.jpg';
+
+
+
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Github,
+  Youtube,
+  Dribbble,
+  Mail,
+} from 'lucide-react';
 
 const Navbar = () => {
   const [langOpen, setLangOpen] = useState(false);
@@ -35,7 +49,7 @@ const Navbar = () => {
     { title: 'Portfolio', bg: portfolioBg, href: '/portfolio' },
     { title: 'Careers', bg: careersBg, href: '/careers' },
     // { title: 'News', bg: newsBg, href: '/news' },
-    { title: 'Game James', bg: eventsBg, href: '/game-james' },
+    { title: 'Game James', bg: jams, href: '/game-james' },
     // { title: 'Events', bg: eventsBg, href: '/events' },
     { title: 'Contact Us', bg: contactBg, href: '/contact-us' },
 
@@ -65,7 +79,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4 text-sm md:text-base font-medium">
           {/* Languages */}
           <div className="relative">
-            <button onClick={() => setLangOpen(!langOpen)} className="flex items-center gap-1 hover:text-[#FFC695] transition">
+            <button onClick={() => setLangOpen(!langOpen)} className="flex items-center gap-1 hover:text-[#BA7A2B] transition">
               <span className="uppercase">English</span>
               <svg className="w-3 h-3 fill-current" viewBox="0 0 320 512">
                 <path d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 
@@ -102,7 +116,7 @@ const Navbar = () => {
           {/* Contact Button - Changed to Link */}
           <Link
             to="/contact-us"
-            className="hidden md:inline-block text-[#FFC695] uppercase text-sm md:text-base font-semibold px-5 py-2 hover:opacity-75 transition tracking-wide"
+            className="hidden md:inline-block text-[#BA7A2B] uppercase text-sm md:text-base font-semibold px-5 py-2 hover:opacity-75 transition tracking-wide"
             style={{ textShadow: '0 0 12px #ffc695' }}
           >
             Contact Us
@@ -129,7 +143,7 @@ const Navbar = () => {
                 setMenuOpen(false);
                 setCurrentBg(bgImg); 
               }}
-              className="text-4xl font-bold hover:text-[#FFC695] transition duration-300"
+              className="text-4xl font-bold hover:text-[#BA7A2B] transition duration-300"
             >
               &times;
             </button>
@@ -161,7 +175,7 @@ const Navbar = () => {
                     >
                       <Link
                         to={item.href}
-                        className="block text-2xl md:text-4xl lg:text-4xl font-bold uppercase tracking-wider hover:text-[#FFC695] transition duration-300"
+                        className="block text-2xl md:text-4xl lg:text-4xl font-bold uppercase tracking-wider hover:text-[#BA7A2B] transition duration-300"
                         onClick={() => setMenuOpen(false)}
                       >
                         {item.title}
@@ -176,7 +190,7 @@ const Navbar = () => {
                             >
                               <Link
                                 to={subitem.href}
-                                className="block px-6 py-3 text-3xl font-semibold uppercase tracking-wider hover:text-[#FFC695] transition duration-300"
+                                className="block px-6 py-3 text-3xl font-semibold uppercase tracking-wider hover:text-[#BA7A2B] transition duration-300"
                                 onClick={() => setMenuOpen(false)}
                               >
                                 {subitem.title}
@@ -201,15 +215,32 @@ const Navbar = () => {
             {/* Footer with social links */}
             <div className="pb-10 px-6">
               <div className="flex flex-col md:flex-row justify-end items-center gap-6">
-                <div className="flex gap-4">
-                  {/* Social links would also use Link if they're internal */}
-                  <a href="#" className="text-white hover:text-[#FFC695] transition">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.325V1.325C24 .593 23.407 0 22.675 0z"/>
-                    </svg>
-                  </a>
-                  {/* Other social icons... */}
-                </div>
+               <div className="flex gap-4">
+      <a href="#" className="text-white hover:text-[#BA7A2B] transition" aria-label="Facebook">
+        <Facebook className="w-5 h-5" />
+      </a>
+      <a href="#" className="text-white hover:text-[#BA7A2B] transition" aria-label="Twitter">
+        <Twitter className="w-5 h-5" />
+      </a>
+      <a href="#" className="text-white hover:text-[#BA7A2B] transition" aria-label="Instagram">
+        <Instagram className="w-5 h-5" />
+      </a>
+      <a href="#" className="text-white hover:text-[#BA7A2B] transition" aria-label="LinkedIn">
+        <Linkedin className="w-5 h-5" />
+      </a>
+      <a href="#" className="text-white hover:text-[#BA7A2B] transition" aria-label="GitHub">
+        <Github className="w-5 h-5" />
+      </a>
+      <a href="#" className="text-white hover:text-[#BA7A2B] transition" aria-label="YouTube">
+        <Youtube className="w-5 h-5" />
+      </a>
+      <a href="#" className="text-white hover:text-[#BA7A2B] transition" aria-label="Dribbble">
+        <Dribbble className="w-5 h-5" />
+      </a>
+      <a href="mailto:example@email.com" className="text-white hover:text-[#BA7A2B] transition" aria-label="Email">
+        <Mail className="w-5 h-5" />
+      </a>
+    </div>
               </div>
             </div>
           </div>
