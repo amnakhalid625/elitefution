@@ -3,72 +3,24 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-
-import ImageOne from "../assets/images/image1.png";
-import ImageTwo from "../assets/images/image2.png";
-import ImageFour from "../assets/images/image4.png";
-import ImageEight from "../assets/images/image8.png";
-import ImageNine from "../assets/images/image9.png";
-import ImageTen from "../assets/images/image10.png";
-
-const games = [
-  { title: "The Callisto Protocol", studio: "Omeda Studios", image: ImageOne },
-  { title: "Marvel’s Midnight Suns", studio: "Firaxis Games", image: ImageTwo },
-  { title: "Life Rendered", studio: "Unknown", image: ImageFour },
-  { title: "Game 8", studio: "Studio 8", image: ImageEight },
-  { title: "Game 9", studio: "Studio 9", image: ImageNine },
-  { title: "Game 10", studio: "Studio 10", image: ImageTen },
-  { title: "The Callisto Protocol", studio: "Omeda Studios", image: ImageOne },
-  { title: "Marvel’s Midnight Suns", studio: "Firaxis Games", image: ImageTwo },
-  { title: "Life Rendered", studio: "Unknown", image: ImageFour },
-  { title: "Game 8", studio: "Studio 8", image: ImageEight },
-  { title: "Game 9", studio: "Studio 9", image: ImageNine },
-  { title: "Game 10", studio: "Studio 10", image: ImageTen },
-  { title: "The Callisto Protocol", studio: "Omeda Studios", image: ImageOne },
-  { title: "Marvel’s Midnight Suns", studio: "Firaxis Games", image: ImageTwo },
-  { title: "Life Rendered", studio: "Unknown", image: ImageFour },
-  { title: "Game 8", studio: "Studio 8", image: ImageEight },
-  { title: "Game 9", studio: "Studio 9", image: ImageNine },
-  { title: "Game 10", studio: "Studio 10", image: ImageTen },
-  { title: "The Callisto Protocol", studio: "Omeda Studios", image: ImageOne },
-  { title: "Marvel’s Midnight Suns", studio: "Firaxis Games", image: ImageTwo },
-  { title: "Life Rendered", studio: "Unknown", image: ImageFour },
-  { title: "Game 8", studio: "Studio 8", image: ImageEight },
-  { title: "Game 9", studio: "Studio 9", image: ImageNine },
-  { title: "Game 10", studio: "Studio 10", image: ImageTen },
-  { title: "The Callisto Protocol", studio: "Omeda Studios", image: ImageOne },
-  { title: "Marvel’s Midnight Suns", studio: "Firaxis Games", image: ImageTwo },
-  { title: "Life Rendered", studio: "Unknown", image: ImageFour },
-  { title: "Game 8", studio: "Studio 8", image: ImageEight },
-  { title: "Game 9", studio: "Studio 9", image: ImageNine },
-  { title: "Game 10", studio: "Studio 10", image: ImageTen },
-  { title: "The Callisto Protocol", studio: "Omeda Studios", image: ImageOne },
-  { title: "Marvel’s Midnight Suns", studio: "Firaxis Games", image: ImageTwo },
-  { title: "Life Rendered", studio: "Unknown", image: ImageFour },
-  { title: "Game 8", studio: "Studio 8", image: ImageEight },
-  { title: "Game 9", studio: "Studio 9", image: ImageNine },
-  { title: "Game 10", studio: "Studio 10", image: ImageTen },
-];
+import { games } from "../data"; 
 
 const CardSlider = () => {
   return (
     <section className="bg-gradient-to-b from-[#1c1e20] via-[#1c1e20] to-[#121416] text-white py-20 px-4 sm:px-6 lg:px-12">
-  <div className="text-center max-w-4xl mx-auto">
-    <h1 className="text-6xl sm:text-7xl lg:text-7xl font-extrabold uppercase tracking-wide font-primary mb-8">
-      Excellence in Every Project
-    </h1>
-    <p className="text-lg sm:text-xl leading-relaxed mb-14">
-      We have built a legacy of creating critically acclaimed, 
-      award-winning games and setting new standards in development.
-      From developing concepts, all the way to remaking classic 
-      titles — we’ve done it all.
-    </p>
-  </div>
-
-
+      <div className="text-center max-w-4xl mx-auto">
+        <h1 className="text-6xl sm:text-7xl lg:text-7xl font-extrabold uppercase tracking-wide font-primary mb-8">
+          Excellence in Every Project
+        </h1>
+        <p className="text-lg sm:text-xl leading-relaxed mb-14">
+          We have built a legacy of creating critically acclaimed, 
+          award-winning games and setting new standards in development.
+          From developing concepts, all the way to remaking classic 
+          titles — we've done it all.
+        </p>
+      </div>
 
       {/* Swiper Slider */}
-
       <Swiper
         modules={[Autoplay, Pagination]}
         spaceBetween={10}
@@ -148,7 +100,7 @@ const CardSlider = () => {
           width: 30px;
           height: 5px;
           border-radius: 9999px;
-          background: #ff6900;
+          background: #BA7A2B;
           opacity: 1;
         }
       `}</style>

@@ -55,7 +55,7 @@ const About = () => {
         {[...Array(30)].map((_, i) => (
           <div 
             key={i}
-            className="absolute rounded-full bg-orange-500"
+            className="absolute rounded-full bg-[#BA7A2B]"
             style={{
               width: `${Math.random() * 5 + 1}px`,
               height: `${Math.random() * 5 + 1}px`,
@@ -123,11 +123,11 @@ const About = () => {
                   <div 
                     ref={el => counterRefs.current[index] = el}
                     data-target={item.value}
-                    className="text-3xl sm:text-4xl md:text-5xl font-bold text-orange-500 transition-all duration-300 group-hover:text-white group-hover:scale-110"
+                    className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#BA7A2B] transition-all duration-300 group-hover:text-white group-hover:scale-110"
                   >
                     0{index % 2 === 0 ? '+' : ''}
                   </div>
-                  <div className="text-xs sm:text-sm uppercase mt-2 text-blue-200 tracking-widest transition-all duration-300 group-hover:text-orange-300">
+                  <div className="text-xs sm:text-sm uppercase mt-2 text-blue-200 tracking-widest transition-all duration-300 group-hover:text-[#BA7A2B]">
                     {item.label}
                   </div>
                 </div>

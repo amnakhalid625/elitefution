@@ -1,5 +1,5 @@
 import React from 'react';
-import carearBg from '../assets/images/carearbg.jpg';
+import carearBg from '../assets/images/carear.jpg';
 
 const Career = () => {
   return (

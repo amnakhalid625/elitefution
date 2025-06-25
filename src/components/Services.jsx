@@ -3,12 +3,18 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
-import duneImg from '../assets/images/duneImg.jpg';
+import duneImg from '../assets/images/card16.webp';
 import darkSoulImg from '../assets/images/darkSoulImg.jpg';
 import judasImg from '../assets/images/judasImg.jpg';
 import portfolioImg from '../assets/images/portfolio.webp';
 import stellerImg from '../assets/images/stellar_blade.png';
 import leagueoImg from '../assets/images/leagueoImg.jpg';
+import cardOne from '../assets/images/card1.webp';
+import cardTwo from '../assets/images/card2.webp';
+import cardThree from '../assets/images/card3.webp';
+import serviceImg from '../assets/images/serviceImg1.webp';
+import serviceImgTwo from '../assets/images/serviceImg2.webp';
+
 import { Code, Cpu, Palette, Rocket, Settings, Users } from 'lucide-react';
 
 const Services = () => {
@@ -48,7 +54,7 @@ const Services = () => {
   const ImageWithOverlay = ({ src, alt, client }) => (
     <div className="relative rounded-lg overflow-hidden h-full">
       <img src={src} alt={alt} className="w-full h-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#04526b] via-[rgba(37,40,42,0.5)] to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[black] via-[rgba(37,40,42,0.5)] to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 p-3">
         <p className="text-white text-sm font-medium">{client}</p>
       </div>
@@ -96,8 +102,8 @@ const Services = () => {
       description: 'Advisory services on game economy design, token distribution, and blockchain strategy.',
       features: ['Character Design', 'Environment Art', 'Animation', 'Cinematics'],
       images: [
-        { src: stellerImg, alt: 'Stellar Blade', client: 'Shift Up' },
-        { src: leagueoImg, alt: 'Leagueo', client: 'Virtuos' },
+        { src: cardOne, alt: 'Stellar Blade', client: 'Shift Up' },
+        { src: cardThree, alt: 'Leagueo', client: 'Virtuos' },
       ],
     },
     whitelabel: {
@@ -105,8 +111,8 @@ const Services = () => {
       description: 'Ready-to-launch game products tailored for brands looking to enter the gaming market quickly and efficiently.',
       features: ['Character Design', 'Environment Art', 'Animation', 'Cinematics'],
       images: [
-        { src: stellerImg, alt: 'Stellar Blade', client: 'Shift Up' },
-        { src: leagueoImg, alt: 'Leagueo', client: 'Virtuos' },
+        { src: serviceImg, alt: 'Stellar Blade', client: 'Shift Up' },
+        { src: serviceImgTwo, alt: 'Leagueo', client: 'Virtuos' },
       ],
     },
   };

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Facebook, Instagram, Linkedin, Youtube } from 'lucide-react';
-import logoImg from '../assets/images/logo.webp';
+import logoImg from '../assets/images/logo.png';
 import menuIcon from '../assets/images/menuImg.webp';
 import bgImg from '../assets/images/menuBg.webp';
 // Import your hover background images
 import aboutBg from '../assets/images/about-bg.webp';
 import servicesBg from '../assets/images/services-bg.webp';
 import worksBg from '../assets/images/works-bg.webp';
-import portfolioBg from '../assets/images/portfolio-bg.webp'; // Add this import
+import portfolioBg from '../assets/images/portfolio-bg.webp'; 
 import careersBg from '../assets/images/menuBg.webp';
 import newsBg from '../assets/images/news-bg.webp';
 import eventsBg from '../assets/images/events-bg.webp';
