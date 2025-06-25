@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import thumbnail from '../assets/images/our-service-video.png';
+import thumbnail from '../assets/images/videoImg.webp'; 
 import { X } from 'lucide-react';
+import video from '../assets/images/video.mp4';
+
 
 export const Video = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,15 +57,15 @@ export const Video = () => {
 
             {/* YouTube Embed */}
             <div className="w-full aspect-video">
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://youtu.be/vi9iLZjtSlI?si=DGQFbaRE16gTnKi9"
-                title="YouTube Video"
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-              ></iframe>
+               <video
+                                src={video}
+                                controls
+                                autoPlay
+                                preload="auto"
+                                className="w-full h-full rounded-lg"
+                              >
+                                Your browser does not support the video tag.
+                              </video>
             </div>
           </div>
         </div>

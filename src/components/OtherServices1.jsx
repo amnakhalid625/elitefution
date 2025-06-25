@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import engineeringBg from '../assets/images/engineering.png'; // Placeholder image path
-import artProductionBg from '../assets/images/art-production.png'; // Placeholder image path
+import engineeringBg from '../assets/images/engineering.png'; 
+import artProductionBg from '../assets/images/art-production.png'; 
 
 const OtherServices1 = () => {
   const [hovered, setHovered] = useState(null);

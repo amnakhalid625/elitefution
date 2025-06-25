@@ -12,7 +12,7 @@ import { Video } from '../components/Video';
 import Map from '../components/Map';
 import Services from '../components/Services';
 import Projects from '../components/Projects';
-import Partners from '../components/Partners';
+// import Partners from '../components/Partners';
 // import News from '../components/News';
 import Carear from '../components/Carear';
 import Footer from '../components/Footer';
@@ -142,7 +142,7 @@ const Home = () => {
       <Services />
       <CardSlider />
       <Projects />
-      <Partners />
+      {/* <Partners /> */}
       {/* <News /> */}
       <Carear/>
       <Footer />

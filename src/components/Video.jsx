@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import thumbnail from '../assets/images/videoImg.jpg';
+import thumbnail from '../assets/images/videoImg.webp';
 import { X } from 'lucide-react';
 import video from '../assets/images/video.mp4';
 
