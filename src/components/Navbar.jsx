@@ -52,6 +52,7 @@ const Navbar = () => {
     { title: 'Game James', bg: jams, href: '/game-james' },
     // { title: 'Events', bg: eventsBg, href: '/events' },
     { title: 'Contact Us', bg: contactBg, href: '/contact-us' },
+    { title: 'Sign Up', bg: contactBg, href: '/signup' },
 
   ];
 

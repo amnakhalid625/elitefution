@@ -1,27 +1,101 @@
-import React, { useState } from 'react';
-import { FaUser, FaLock, FaSteam, FaGoogle, FaDiscord } from 'react-icons/fa';
-import { GiGamepad } from 'react-icons/gi';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { GoogleLogin } from "@react-oauth/google";
+import { FaUser, FaLock, FaSteam, FaGoogle, FaDiscord } from "react-icons/fa";
+import { GiGamepad } from "react-icons/gi";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LoginForm = () => {
-  const [credentials, setCredentials] = useState({ username: '', password: '' });
+  const [credentials, setCredentials] = useState({ username: "", password: "" });
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCredentials(prev => ({ ...prev, [name]: value }));
+    setCredentials((prev) => ({ ...prev, [name]: value }));
+    setError(""); // Clear error on input change
   };
 
-  const handleSubmit = (e) => {
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     setIsLoading(true);
+//     try {
+//      const response = await axios.get("http://localhost:5000/api/auth/signin", {
+//   username: credentials.username, // or email, depending on backend requirements
+//   password: credentials.password,
+// });
+//       console.log("Sign-in successful:", response.data.username);
+
+//       // Save token in localStorage if "Remember me" is checked
+//       if (rememberMe) {
+//         localStorage.setItem("token", response.data.token);
+//       }
+
+//       // Redirect to upload page
+//       setIsLoading(false);
+//       navigate("/upload");
+//     } catch (err) {
+//       console.error("Sign-in error:", err.response?.data || err.message);
+//       setError(err.response?.data?.error || "Invalid username or password");
+//       setIsLoading(false);
+//     }
+//   };
+
+
+const handleSubmit = async (e) => {
     e.preventDefault();
+
     setIsLoading(true);
-    setTimeout(() => {
-      localStorage.setItem("token", "dummy_token");
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credentials),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        navigate('/dashboard');
+      } else {
+        setErrors({ api: data.message });
+      }
+    } catch (error) {
+      setErrors({ api: 'An error occurred. Please try again later.' });
+    } finally {
       setIsLoading(false);
-      navigate('/upload');
-    }, 1500);
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    setIsLoading(true);
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/google-signin", {
+        credential: credentialResponse.credential,
+      });
+
+      if (res.data.success) {
+        localStorage.setItem("token", res.data.token);
+        navigate("/dashboard");
+      } else {
+        setError(res.data.message || "Google sign-in failed.");
+      }
+    } catch (err) {
+      console.error("Google sign-in error:", err.response?.data || err.message);
+      setError(err.response?.data?.message || "An error occurred during Google sign-in.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleError = () => {
+    console.error("Google Sign-In was unsuccessful. Try again later");
+    setError("Google sign-in failed. Please try again.");
   };
 
   return (
@@ -74,6 +148,9 @@ const LoginForm = () => {
               </div>
             </div>
 
+            {/* Error Message */}
+            {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
+
             {/* Remember me */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center">
@@ -90,7 +167,9 @@ const LoginForm = () => {
                 </label>
               </div>
               <div className="text-sm">
-                <a href="#" className="text-orange-500 hover:underline">Forgot password?</a>
+                <a href="#" className="text-orange-500 hover:underline">
+                  Forgot password?
+                </a>
               </div>
             </div>
 
@@ -99,22 +178,30 @@ const LoginForm = () => {
               type="submit"
               disabled={isLoading}
               className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-md font-medium text-black bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-all duration-300 ${
-                isLoading ? 'opacity-75 cursor-not-allowed' : ''
+                isLoading ? "opacity-75 cursor-not-allowed" : ""
               }`}
             >
               {isLoading ? (
                 <span className="flex items-center">
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-black"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0..." />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0..."
+                    />
                   </svg>
                   SIGNING IN...
                 </span>
               ) : (
-                'SIGN IN'
+                "SIGN IN"
               )}
             </button>
-
             {/* Divider */}
             <div className="mt-6 relative">
               <div className="absolute inset-0 flex items-center">
@@ -127,12 +214,21 @@ const LoginForm = () => {
 
             {/* Social logins */}
             <div className="mt-6 grid grid-cols-3 gap-3">
-              <a href="#" className="flex justify-center py-2 px-4 border border-gray-700 rounded-lg bg-black text-gray-300 hover:bg-gray-800 transition">
-                <FaSteam />
+               <a href="#"
+                    className="w-full inline-flex justify-center py-2 px-4 border border-gray-700 rounded-lg shadow-sm bg-black text-sm font-medium text-gray-300 hover:bg-gray-800 transition-colors duration-300"
+                    onClick={() => window.location.href = 'http://localhost:5000/api/auth/github'}
+                    >
+                    <FaSteam className="h-5 w-5" />
               </a>
-              <a href="#" className="flex justify-center py-2 px-4 border border-gray-700 rounded-lg bg-black text-gray-300 hover:bg-gray-800 transition">
-                <FaGoogle />
-              </a>
+                            <div className="flex justify-center">
+                <GoogleLogin
+                  onSuccess={handleGoogleSuccess}
+                  onError={handleGoogleError}
+                  useOneTap
+                  theme="outline"
+                  size="medium"
+                />
+              </div>
               <a href="#" className="flex justify-center py-2 px-4 border border-gray-700 rounded-lg bg-black text-gray-300 hover:bg-gray-800 transition">
                 <FaDiscord />
               </a>

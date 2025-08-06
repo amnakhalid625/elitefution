@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useGoogleLogin } from '@react-oauth/google';
 import { FaUser, FaEnvelope, FaLock, FaGamepad, FaSteam, FaGoogle, FaDiscord } from 'react-icons/fa';
 import { GiPadlock } from 'react-icons/gi';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,6 +14,8 @@ const SignupForm = () => {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [googleError, setGoogleError] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -37,18 +40,71 @@ const SignupForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validate()) {
-      setIsLoading(true);
-      setTimeout(() => {
-        localStorage.setItem("token", "dummy_token");
-        setIsLoading(false);
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (validate()) {
+    setIsLoading(true);
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+          confirmPassword: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("User registered:", data);
         setSuccess(true);
-        setTimeout(() => navigate('/upload'), 1500);
-      }, 2000);
+        setTimeout(() => navigate("/upload"), 1500);
+      } else {
+        console.error("Error during registration:", data);
+        setErrors({ api: data.message || "Failed to register." });
+      }
+    } catch (error) {
+      console.error("Network error:", error);
+      setErrors({ api: "An error occurred. Please try again later." });
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }
+};
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      setGoogleLoading(true);
+      setGoogleError('');
+      try {
+        const res = await fetch('http://localhost:5000/api/auth/google-access-token-signin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ access_token: tokenResponse.access_token })
+        });
+        const data = await res.json();
+        if (data.success && data.token) {
+          localStorage.setItem('token', data.token);
+          navigate('/dashboard'); // Or wherever you want to redirect after login
+        } else {
+          setGoogleError(data.message || 'Google sign-in failed.');
+        }
+      } catch (err) {
+        setGoogleError('An error occurred during Google sign-in.');
+      } finally {
+        setGoogleLoading(false);
+      }
+    },
+    onError: () => {
+      setGoogleError('Google Sign-In failed. Please try again.');
+      setGoogleLoading(false);
+    },
+  });
 
   if (success) {
     return (
@@ -202,15 +258,24 @@ const SignupForm = () => {
               <button
                 type="button"
                 className="w-full inline-flex justify-center py-2 px-4 border border-gray-700 rounded-lg shadow-sm bg-black text-sm font-medium text-gray-300 hover:bg-gray-800 transition-colors duration-300"
+                onClick={() => window.location.href = 'http://localhost:5000/api/auth/github'}
               >
                 <FaSteam className="h-5 w-5" />
               </button>
               <button
                 type="button"
-                className="w-full inline-flex justify-center py-2 px-4 border border-gray-700 rounded-lg shadow-sm bg-black text-sm font-medium text-gray-300 hover:bg-gray-800 transition-colors duration-300"
+                onClick={() => googleLogin()}
+                disabled={googleLoading}
+                className={`w-full inline-flex justify-center py-2 px-4 border border-gray-700 rounded-lg shadow-sm bg-black text-sm font-medium text-gray-300 hover:bg-gray-800 transition-colors duration-300 ${googleLoading ? 'opacity-60 cursor-not-allowed' : ''}`}
               >
-                <FaGoogle className="h-5 w-5" />
+                {googleLoading ? (
+                  <svg className="animate-spin h-5 w-5 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                ) : <FaGoogle className="h-5 w-5" />}
               </button>
+              {googleError && <p className="col-span-3 text-center text-sm text-red-400 mt-2">{googleError}</p>}
               <button
                 type="button"
                 className="w-full inline-flex justify-center py-2 px-4 border border-gray-700 rounded-lg shadow-sm bg-black text-sm font-medium text-gray-300 hover:bg-gray-800 transition-colors duration-300"

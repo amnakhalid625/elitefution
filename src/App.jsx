@@ -13,6 +13,7 @@ import UploadGameForm from './components/UploadGames';
 import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignUp';
 import ContactForm from './components/Contact';
+import GithubLoginButton from './pages/GithubLoginButton';
 
 function App() {
   return (
@@ -24,23 +25,14 @@ function App() {
       <Route path="/our-services" element={<OurServices />} />
       <Route path="/portfolio" element={<Portfolio />} />
       <Route path="/about-us" element={<AboutCompany />} />
-      <Route path="/our-work" element={<OurWork/>} />
-         <Route path="/careers" element={<Careers/>} />
-         <Route path="/game-james" element={<GameJames/>} />
-         <Route path="/upload" element={<UploadGameForm/>} />
-         <Route path="/login" element={<LoginForm/>} />
-         <Route path="/signup" element={<SignupForm/>} />
-         <Route path="/contact-us" element={<ContactForm/>} />
-
-
-
-
-
-
-
-
-
-      
+      <Route path="/our-work" element={<OurWork />} />
+      <Route path="/careers" element={<Careers />} />
+      <Route path="/game-james" element={<GameJames />} />
+      <Route path="/upload" element={<UploadGameForm />} />
+      <Route path="/login" element={<LoginForm />} />
+      <Route path="/signup" element={<SignupForm />} />
+      <Route path="/signupgithub" element={<GithubLoginButton></GithubLoginButton>} />
+      <Route path="/contact-us" element={<ContactForm />} />
       {/* Add more routes as needed */}
       <Route path="*" element={<Home />} /> {/* Fallback route */}
       {/* This will redirect any unknown paths back to Home */}
