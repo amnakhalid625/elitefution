@@ -3,7 +3,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import { FaUser, FaLock, FaSteam, FaGoogle, FaDiscord } from "react-icons/fa";
 import { GiGamepad } from "react-icons/gi";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useAuth } from "../../contexts/AuthContext.jsx";
 
 const LoginForm = () => {
   const [credentials, setCredentials] = useState({ username: "", password: "" });
@@ -11,6 +11,7 @@ const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,76 +19,58 @@ const LoginForm = () => {
     setError(""); // Clear error on input change
   };
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setIsLoading(true);
-//     try {
-//      const response = await axios.get("http://localhost:5000/api/auth/signin", {
-//   username: credentials.username, // or email, depending on backend requirements
-//   password: credentials.password,
-// });
-//       console.log("Sign-in successful:", response.data.username);
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
+  setError("");
 
-//       // Save token in localStorage if "Remember me" is checked
-//       if (rememberMe) {
-//         localStorage.setItem("token", response.data.token);
-//       }
+  try {
+    const result = await login(credentials);
+    
+    if (result.success) {
+      console.log("Login successful:", result.user);
+      
+      // Check if user was trying to access upload page
+      const from = location.state?.from?.pathname || '/';
+      navigate(from, { replace: true });
+    } else {
+      setError(result.message);
+    }
+  } catch (err) {
+    console.error("Login error:", err);
+    setError("An unexpected error occurred. Please try again.");
+  } finally {
+    setIsLoading(false);
+  }
+};
 
-//       // Redirect to upload page
-//       setIsLoading(false);
-//       navigate("/upload");
-//     } catch (err) {
-//       console.error("Sign-in error:", err.response?.data || err.message);
-//       setError(err.response?.data?.error || "Invalid username or password");
-//       setIsLoading(false);
-//     }
-//   };
-
-
-const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleGoogleSuccess = async (credentialResponse) => {
     setIsLoading(true);
+    setError("");
+
     try {
-      const response = await fetch('http://localhost:5000/api/auth/signin', {
+      const response = await fetch("http://localhost:5000/api/auth/google-signin", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(credentials),
+        body: JSON.stringify({
+          credential: credentialResponse.credential,
+        }),
       });
 
       const data = await response.json();
 
-      if (response.ok) {
-        localStorage.setItem('token', data.token);
-        navigate('/dashboard');
+      if (response.ok && data.success) {
+        // Use the auth context to set user data
+        localStorage.setItem("token", data.token);
+        window.location.reload(); // Reload to trigger auth check
       } else {
-        setErrors({ api: data.message });
-      }
-    } catch (error) {
-      setErrors({ api: 'An error occurred. Please try again later.' });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleGoogleSuccess = async (credentialResponse) => {
-    setIsLoading(true);
-    try {
-      const res = await axios.post("http://localhost:5000/api/auth/google-signin", {
-        credential: credentialResponse.credential,
-      });
-
-      if (res.data.success) {
-        localStorage.setItem("token", res.data.token);
-        navigate("/dashboard");
-      } else {
-        setError(res.data.message || "Google sign-in failed.");
+        setError(data.message || "Google sign-in failed.");
       }
     } catch (err) {
-      console.error("Google sign-in error:", err.response?.data || err.message);
-      setError(err.response?.data?.message || "An error occurred during Google sign-in.");
+      console.error("Google sign-in error:", err);
+      setError("An error occurred during Google sign-in.");
     } finally {
       setIsLoading(false);
     }
@@ -101,11 +84,14 @@ const handleSubmit = async (e) => {
   return (
     <div className="min-h-screen bg-black flex items-center justify-center p-4">
       <div className="w-full max-w-md">
+        {/* Header */}
         <div className="text-center mb-8">
           <GiGamepad className="mx-auto text-5xl text-orange-500 mb-3" />
           <h2 className="text-5xl font-bold text-white mb-2 font-primary">WELCOME BACK</h2>
+          <p className="text-gray-400">Sign in to continue your gaming journey</p>
         </div>
 
+        {/* Form Container */}
         <div className="bg-[#111] rounded-xl shadow-2xl overflow-hidden border border-gray-700">
           <form onSubmit={handleSubmit} className="p-8">
             {/* Username */}
@@ -121,8 +107,9 @@ const handleSubmit = async (e) => {
                   value={credentials.username}
                   onChange={handleChange}
                   className="w-full px-4 py-3 pl-10 bg-black border border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white placeholder-gray-400"
-                  placeholder="Enter your username"
+                  placeholder="Enter your username or email"
                   required
+                  disabled={isLoading}
                 />
                 <FaUser className="absolute left-3 top-3.5 text-gray-500" />
               </div>
@@ -143,13 +130,18 @@ const handleSubmit = async (e) => {
                   className="w-full px-4 py-3 pl-10 bg-black border border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-white placeholder-gray-400"
                   placeholder="Enter your password"
                   required
+                  disabled={isLoading}
                 />
                 <FaLock className="absolute left-3 top-3.5 text-gray-500" />
               </div>
             </div>
 
             {/* Error Message */}
-            {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
+            {error && (
+              <div className="mb-4 p-3 bg-red-900/50 border border-red-500 rounded-lg">
+                <p className="text-red-300 text-sm">{error}</p>
+              </div>
+            )}
 
             {/* Remember me */}
             <div className="flex items-center justify-between mb-6">
@@ -160,16 +152,16 @@ const handleSubmit = async (e) => {
                   type="checkbox"
                   checked={rememberMe}
                   onChange={() => setRememberMe(!rememberMe)}
-                  className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-600 bg-black"
+                  className="h-4 w-4 text-orange-500 focus:ring-orange-500 border-gray-600 bg-black rounded"
                 />
                 <label htmlFor="remember-me" className="ml-2 text-sm text-gray-300">
                   Remember me
                 </label>
               </div>
               <div className="text-sm">
-                <a href="#" className="text-orange-500 hover:underline">
+                <Link to="/forgot-password" className="text-orange-500 hover:text-orange-400 transition-colors">
                   Forgot password?
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -193,8 +185,7 @@ const handleSubmit = async (e) => {
                     <path
                       className="opacity-75"
                       fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0..."
-                    />
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
                   SIGNING IN...
                 </span>
@@ -202,6 +193,7 @@ const handleSubmit = async (e) => {
                 "SIGN IN"
               )}
             </button>
+
             {/* Divider */}
             <div className="mt-6 relative">
               <div className="absolute inset-0 flex items-center">
@@ -214,24 +206,30 @@ const handleSubmit = async (e) => {
 
             {/* Social logins */}
             <div className="mt-6 grid grid-cols-3 gap-3">
-               <a href="#"
-                    className="w-full inline-flex justify-center py-2 px-4 border border-gray-700 rounded-lg shadow-sm bg-black text-sm font-medium text-gray-300 hover:bg-gray-800 transition-colors duration-300"
-                    onClick={() => window.location.href = 'http://localhost:5000/api/auth/github'}
-                    >
-                    <FaSteam className="h-5 w-5" />
-              </a>
-                            <div className="flex justify-center">
+              <button
+                type="button"
+                className="w-full inline-flex justify-center py-2 px-4 border border-gray-700 rounded-lg shadow-sm bg-black text-sm font-medium text-gray-300 hover:bg-gray-800 transition-colors duration-300"
+                onClick={() => window.location.href = 'http://localhost:5000/api/auth/github'}
+              >
+                <FaSteam className="h-5 w-5" />
+              </button>
+              
+              <div className="flex justify-center">
                 <GoogleLogin
                   onSuccess={handleGoogleSuccess}
                   onError={handleGoogleError}
-                  useOneTap
                   theme="outline"
                   size="medium"
+                  width="100%"
                 />
               </div>
-              <a href="#" className="flex justify-center py-2 px-4 border border-gray-700 rounded-lg bg-black text-gray-300 hover:bg-gray-800 transition">
-                <FaDiscord />
-              </a>
+              
+              <button
+                type="button"
+                className="w-full inline-flex justify-center py-2 px-4 border border-gray-700 rounded-lg shadow-sm bg-black text-sm font-medium text-gray-300 hover:bg-gray-800 transition-colors duration-300"
+              >
+                <FaDiscord className="h-5 w-5" />
+              </button>
             </div>
           </form>
 
@@ -239,7 +237,9 @@ const handleSubmit = async (e) => {
           <div className="px-8 py-4 bg-black text-center border-t border-gray-700">
             <p className="text-gray-400 text-sm">
               Don't have an account?{' '}
-              <Link to="/signup" className="text-orange-500 hover:underline">Sign up</Link>
+              <Link to="/register" className="text-orange-500 hover:text-orange-400 font-medium transition-colors">
+                Sign up
+              </Link>
             </p>
           </div>
         </div>
